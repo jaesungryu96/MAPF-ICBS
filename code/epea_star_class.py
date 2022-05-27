@@ -432,6 +432,7 @@ class EPEA_Star(object):
                     next_F = child_f if not next_F else min(next_F, child_f)
         else:
             children = self.generate_child_nodes(node)
+            print(children)
             self.osf_table[table_key] = copy.deepcopy(children)
             for child in children:
                 child_f = child['g_val'] + child['h_val']

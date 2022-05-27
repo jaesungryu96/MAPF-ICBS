@@ -20,8 +20,12 @@ def get_sum_of_cost(paths):
     return rst
 
 
-def compute_heuristics(my_map, goal):
+def compute_heuristics(my_map, goal, cost_map):
     # Use Dijkstra to build a shortest-path tree rooted at the goal location
+    cost_array = numpy.asarray(cost_map)
+    cost_list = numpy.where(cost_array==5)
+    cost_10_xy = [(int(x), int(y)) for x, y in zip(cost_list[0], cost_list[1])]
+
     open_list = []
     closed_list = dict()
     root = {'loc': goal, 'cost': 0}
@@ -32,12 +36,19 @@ def compute_heuristics(my_map, goal):
         for dir in range(4):
             child_loc = move(loc, dir)
             child_cost = cost + 1
+
+            if loc in cost_10_xy:
+                child_cost += 5
+
             if child_loc[0] < 0 or child_loc[0] >= len(my_map) \
                or child_loc[1] < 0 or child_loc[1] >= len(my_map[0]):
                continue
+
             if my_map[child_loc[0]][child_loc[1]]:
                 continue
+
             child = {'loc': child_loc, 'cost': child_cost}
+            
             if child_loc in closed_list:
                 existing_node = closed_list[child_loc]
                 if existing_node['cost'] > child_cost:
@@ -48,10 +59,12 @@ def compute_heuristics(my_map, goal):
                 closed_list[child_loc] = child
                 heapq.heappush(open_list, (child_cost, child_loc, child))
 
+
     # build the heuristics table
     h_values = dict()
     for loc, node in closed_list.items():
         h_values[loc] = node['cost']
+
     return h_values
 
 # return a table that constains the list of constraints of all agents for each time step. 

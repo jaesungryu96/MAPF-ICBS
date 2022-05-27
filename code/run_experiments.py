@@ -73,8 +73,18 @@ def import_mapf_instance(filename):
         sx, sy, gx, gy = [int(x) for x in line.split(' ')]
         starts.append((sx, sy))
         goals.append((gx, gy))
+    
+    # add costmap
+    cost_map = []
+    for r in range(rows):
+        line = f.readline().rstrip()
+        cost_list = list(map(int, line.split(" ")))
+        cost_map.append(cost_list)
+    
+    print(cost_map)
     f.close()
-    return my_map, starts, goals
+
+    return my_map, starts, goals, cost_map
 
 
 if __name__ == '__main__':
@@ -101,7 +111,6 @@ if __name__ == '__main__':
 
 
     if args.batch:
-        
         input_instance = sorted(glob.glob("instances/test*"))
     else:
         input_instance = sorted(glob.glob(args.instance))
@@ -112,7 +121,7 @@ if __name__ == '__main__':
 
         
         print(file)
-        my_map, starts, goals = import_mapf_instance(file)
+        my_map, starts, goals, cost_map = import_mapf_instance(file)
         print_mapf_instance(my_map, starts, goals)
 
         if args.hlsolver == "CBS":
@@ -135,7 +144,7 @@ if __name__ == '__main__':
 
         elif args.hlsolver == "ICBS":
             print("***Run ICBS***")
-            cbs = ICBS_Solver(my_map, starts, goals)
+            cbs = ICBS_Solver(my_map, starts, goals, cost_map)
             # solution = cbs.find_solution(args.disjoint)
 
             # if solution is not None:

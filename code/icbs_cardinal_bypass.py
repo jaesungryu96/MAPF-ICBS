@@ -511,7 +511,7 @@ class ICBS_CB_Solver(object):
 
                     if collision_type == 'semi-cardinal':    
                         
-                        print('Detected semi-cardinal collision. Chose it.')
+                        print('Detected semi-cardinal collision. Choose it.')
                         print(collision)
                         
                         chosen_collision = collision

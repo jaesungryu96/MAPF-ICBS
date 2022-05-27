@@ -372,7 +372,7 @@ def should_merge(collision, p, N=0):
 class ICBS_Solver(object):
     """The high-level search of CBS."""
 
-    def __init__(self, my_map, starts, goals):
+    def __init__(self, my_map, starts, goals, cost_map):
         """my_map   - list of lists specifying obstacle positions
         starts      - [(x1, y1), (x2, y2), ...] list of start locations
         goals       - [(x1, y1), (x2, y2), ...] list of goal locations
@@ -383,6 +383,7 @@ class ICBS_Solver(object):
         self.my_map = my_map
         self.starts = starts
         self.goals = goals
+        self.cost_map = cost_map
         self.num_of_agents = len(goals)
         # self.discarded_agents = []
         self.num_of_generated = 0
@@ -394,7 +395,7 @@ class ICBS_Solver(object):
         # compute heuristics for the low-level search
         self.heuristics = []
         for goal in self.goals:
-            self.heuristics.append(compute_heuristics(my_map, goal))
+            self.heuristics.append(compute_heuristics(my_map, goal, cost_map))
 
     def push_node(self, node):
         heapq.heappush(self.open_list, (node['cost'], len(node['ma_collisions']), self.num_of_generated, node))
