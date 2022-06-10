@@ -71,3 +71,4 @@ Code templates and guidance for implementing original CBS and all visualization 
 [^4]: E. Boyrasky, A. Felner, G. Sharon, and R. Stern, “Don’t Split, Try To Work It Out: Bypassing Conflicts in Multi-Agent Pathfinding”, ICAPS, vol. 25, no. 1, pp. 47-51, Apr. 2015.
 
 [^5]: G. Sharon, R. Stern, A. Felner, en N. R. Sturtevant, “Conflict-based search for optimal multi-agent pathfinding”, Artificial Intelligence, vol 219, bll 40–66, 2015.
+# CCBS
